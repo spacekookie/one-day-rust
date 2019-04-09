@@ -96,6 +96,18 @@ fn main() {
 
 - - -
 
+## Debug printing
+
+* `"println!"` is a macro (marked by "!")
+* `"{}"` is used for string interpolation
+  * Different formatters can be used:
+    * `"{:?}"` debug format
+    * `"{:#?}"` pretty debug format
+    * `"{:X}"` upper-case hexadecimal numbers
+    * ... many more in the docs!
+
+- - -
+
 https://play.rust-lang.org
 
 
@@ -862,6 +874,7 @@ test result: ok. 1 passed; 0 failed;
 - - -
 
 * Concurrency with "Send" and "Sync" traits
+* Async server programming
 * "Unsafe" sub-language
 * FFI and "native" calls
 * Declarative Macros
@@ -882,6 +895,22 @@ unsafe impl Send for MyDataStructure {}
 
 - - -
 
+## Async server programming
+
+* Future and Poll types in libstd/libcore
+* `"futures.rs"` crate provides zero cost abstraction combinators
+* async/await syntax not stabilised yet, but in the final stages of implementation
+* Currently requires nightly Rust
+
+```rust
+//     Signature expands to `Future<Item=Result<String, io::Error>>`
+async fn things_with_io() -> Result<String, io::Error> { /* ... */ }
+
+let string = await!(things_with_io)?;
+```
+
+- - -
+
 ## Unsafe sublanguage
 
 * Some things are impossible in safe rust
@@ -893,7 +922,7 @@ unsafe impl Send for MyDataStructure {}
   
 ```rust
 #[allow(mutable_transmutes)] // This is always a bad idea!
-fn fun(mut t: &Thing) {
+fn fun(t: &Thing) {
     let t2: &mut Thing = unsafe { std::mem::transmute(t) };
 }
 ```
