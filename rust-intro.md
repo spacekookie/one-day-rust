@@ -641,7 +641,7 @@ One (1) `&mut` borrow
 Should this compile?
 
 ```rust
-let mut f = File::open("foo.txt)?;
+let mut f = File::open("foo.txt")?;
 
 thread::spawn(|| {
     let mut buf = vec![];
@@ -671,7 +671,7 @@ help: to force the closure to take ownership of `f` (and any other referenced va
 - - - 
 
 ```rust
-let mut f = File::open("foo.txt)?;
+let mut f = File::open("foo.txt")?;
 
 thread::spawn(move || {
     let mut buf = vec![];
